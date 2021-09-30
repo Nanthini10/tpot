@@ -22,7 +22,6 @@ You should have received a copy of the GNU Lesser General Public
 License along with TPOT. If not, see <http://www.gnu.org/licenses/>.
 
 """
-
 from __future__ import print_function
 import random
 import inspect
@@ -96,6 +95,7 @@ except:
 with warnings.catch_warnings():
     warnings.simplefilter("ignore")
     from tqdm.autonotebook import tqdm
+import logging
 
 
 class TPOTBase(BaseEstimator):
@@ -577,7 +577,7 @@ class TPOTBase(BaseEstimator):
             make_pipeline_func = make_imblearn_pipeline
         else:
             make_pipeline_func = make_pipeline
-
+        logging.warn(make_pipeline_func)
         return make_pipeline_func
 
     def _fit_init(self):

@@ -30,7 +30,7 @@ from .export_utils import expr_to_tree, generate_pipeline_code
 from deap import creator
 
 from stopit import threading_timeoutable, TimeoutException
-
+import logging
 
 NUM_TESTS = 10
 MAX_EVAL_SECS = 10
@@ -92,8 +92,9 @@ def _pre_test(func):
                         self.operators
                     )
                     sklearn_pipeline = eval(pipeline_code, self.operators_context)
+                    self._update_pbar(pbar_num=0, pbar_msg=str(sklearn_pipeline))
                     with warnings.catch_warnings():
-                        warnings.simplefilter('ignore')
+#                         warnings.simplefilter('ignore')
                         time_limited_call(
                             sklearn_pipeline.fit,
                             self.pretest_X,
